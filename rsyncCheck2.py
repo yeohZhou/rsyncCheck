@@ -23,7 +23,13 @@ def rsyncExec(ip):
 		raise e
 
 if __name__ == '__main__':
-	ip,threed_num = argv[1:]
+	try:
+		ip,threed_num,password = argv[1:]
+	except:
+		ip,threed_num = argv[1:]
+		password = 0
+	if password != 0:
+		os.environ['RSYNC_PASSWORD']=str(password)
 	ips = [str(ip)+ '.' +str(x) for x in range(255)]
 	pool = ThreadPool(int(threed_num))
 	results = pool.map(rsyncExec,ips)
