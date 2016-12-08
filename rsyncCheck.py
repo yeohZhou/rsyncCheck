@@ -35,7 +35,15 @@ def readText(txtpath):
 	return libs
 
 if __name__ == '__main__':
-	filepath,threed_num = argv[1:]
+	try:
+		filepath,threed_num,password = argv[1:]
+	except:
+		filepath,threed_num = argv[1:]
+	try:
+		if password:
+			os.environ['RSYNC_PASSWORD']=str(password)
+	except:
+		print '...ganga'
 	ips = readText(filepath)
 	pool = ThreadPool(int(threed_num))
 	results = pool.map(rsyncExec,ips)
@@ -43,7 +51,9 @@ if __name__ == '__main__':
 	pool.join()
 	fp = open('rsyncOut.txt','w')
 	ret =  [str for str in results if str not in ['', ' ', None]]
-	for x in ret:
+	new_ret = list(set(ret))
+	new_ret.sort(key=ret.index)
+	for x in new_ret:
 		fp.write(x[0]+'    ')
 		for i in x[1:]:
 			fp.write(" '"+i+"'")
