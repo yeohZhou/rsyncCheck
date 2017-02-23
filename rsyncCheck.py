@@ -6,7 +6,6 @@ import os
 def rsyncExec(ip):
 	try:
 		out = [ip]
-		cmd = 'rsync '+ip+'::'
 		(status,output) = commands.getstatusoutput('rsync '+ip+'::')
 		if status == 0:
 			model = output.split()
