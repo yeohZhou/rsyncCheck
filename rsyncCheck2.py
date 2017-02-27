@@ -17,6 +17,7 @@ def rsyncExec(ip):
 				if statusCheck == 0:
 					out.append(x)
 		if len(out) > 1:
+			print out
 			return out
 	except Exception as e:
 		raise e
