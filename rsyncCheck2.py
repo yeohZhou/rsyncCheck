@@ -6,14 +6,14 @@ import os
 def rsyncExec(ip):
 	try:
 		out = [ip]
-		(status,output) = commands.getstatusoutput('rsync '+ip+'::')
+		(status,output) = commands.getstatusoutput('rsync --timeout=10 '+ip+'::')
 		if status == 0:
 			model = output.split()
 		else:
 			model = '1'
 		if model != '1':
 			for x in model:
-				(statusCheck,outputCheck) = commands.getstatusoutput('rsync '+ip+'::'+x+'/')
+				(statusCheck,outputCheck) = commands.getstatusoutput('rsync --timeout=10 '+ip+'::'+x+'/')
 				if statusCheck == 0:
 					out.append(x)
 		if len(out) > 1:
