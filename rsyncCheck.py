@@ -50,8 +50,6 @@ if __name__ == '__main__':
 	pool.join()
 	fp = open('rsyncOut.txt','w')
 	ret =  [str for str in results if str not in ['', ' ', None]]
-	new_ret = list(set(ret))
-	new_ret.sort(key=ret.index)
 	for x in new_ret:
 		fp.write(x[0]+'    ')
 		for i in x[1:]:
